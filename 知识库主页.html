@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天津职业技术师范大学考研知识库</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        /* 头部 */
+        .header {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header .subtitle {
+            color: #64748b;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            display: inline-flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .countdown-item {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 100px;
+        }
+        .countdown-item .number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .countdown-item .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* 导航 */
+        .nav {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+        .nav-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+        .nav-item {
+            position: relative;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: var(--light);
+            border-radius: 8px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        .nav-link .icon { font-size: 1.1em; }
+        .sub-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            min-width: 200px;
+            padding: 8px;
+            z-index: 101;
+        }
+        .nav-item:hover .sub-nav { display: block; }
+        .sub-nav a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        .sub-nav a:hover { background: var(--light); color: var(--primary); }
+        
+        /* 内容区域 */
+        .content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            min-height: 500px;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        /* 卡片 */
+        .card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+        .card-header .icon { font-size: 1.5em; }
+        .card-header h3 { color: var(--dark); flex: 1; }
+        
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover { background: rgba(37,99,235,0.05); }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .tag-primary { background: rgba(37,99,235,0.1); color: var(--primary); }
+        .tag-success { background: rgba(16,185,129,0.1); color: var(--success); }
+        .tag-warning { background: rgba(245,158,11,0.1); color: var(--accent); }
+        .tag-danger { background: rgba(239,68,68,0.1); color: var(--danger); }
+        
+        /* 网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        /* 时间线 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        .timeline-item h4 { color: var(--primary); margin-bottom: 5px; }
+        .timeline-item p { color: #64748b; font-size: 0.95em; }
+        
+        /* 学习计划样式 */
+        .phase {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .phase h4 { margin-bottom: 5px; }
+        .phase p { opacity: 0.9; font-size: 0.9em; }
+        
+        .task-list {
+            list-style: none;
+        }
+        .task-list li {
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .task-list li input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .task-list li.checked {
+            background: rgba(16,185,129,0.1);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        /* 导师卡片 */
+        .mentor-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .mentor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        .mentor-card h4 { color: var(--primary); margin-bottom: 10px; }
+        .mentor-card .info { color: #64748b; font-size: 0.9em; margin-bottom: 5px; }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .countdown-item { padding: 10px 15px; min-width: 70px; }
+            .countdown-item .number { font-size: 1.8em; }
+            .nav-list { gap: 5px; }
+            .nav-link { padding: 8px 12px; font-size: 0.9em; }
+            .content { padding: 20px; }
+        }
+        
+        /* 快速跳转 */
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+        }
+        
+        /* 进度条 */
+        .progress-bar {
+            background: var(--border);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        
+        /* 统计卡片 */
+        .stat-card {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            color: white;
+        }
+        .stat-card .number { font-size: 2.5em; font-weight: bold; }
+        .stat-card .label { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🎓 天津职业技术师范大学考研知识库</h1>
+            <p class="subtitle">自动化与电气工程学院 · 电气工程及其自动化专业</p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="number" id="days">251</div>
+                    <div class="label">天</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="hours">0</div>
+                    <div class="label">时</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="minutes">0</div>
+                    <div class="label">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="number" id="seconds">0</div>
+                    <div class="label">秒</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导航 -->
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showPage('home')">
+                        <span class="icon">🏠</span> 首页
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <span class="icon">🏫</span> 学校概况
+                    </a>
+                    <div class="sub-nav">
+                        <a onclick="showPage('school-intro')">学校简介</a>
+                        <a onclick="showPage('college-intro')">学院介绍</a>
+                        <a onclick="showPage('contact')">联系方式</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <span class="icon">📚</span> 专业介绍
+                    </a>
+                    <div class="sub-nav">
+                        <a onclick="showPage('major-electrical')">电气工程</a>
+                        <a onclick="showPage('major-control')">控制科学与工程</a>
+                        <a onclick="showPage('major-electronic')">电子信息</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPage('mentors')">
+                        <span class="icon">👨‍🏫</span> 导师介绍
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <span class="icon">📋</span> 招生信息
+                    </a>
+                    <div class="sub-nav">
+                        <a onclick="showPage('admission')">招生简章</a>
+                        <a onclick="showPage('scores')">历年分数线</a>
+                        <a onclick="showPage('调剂')">调剂信息</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <span class="icon">📖</span> 备考学习
+                    </a>
+                    <div class="sub-nav">
+                        <a onclick="showPage('plan-overview')">学习计划概览</a>
+                        <a onclick="showPage('plan-politics')">政治</a>
+                        <a onclick="showPage('plan-english')">英语</a>
+                        <a onclick="showPage('plan-education')">教育综合</a>
+                        <a onclick="showPage('plan-electronic')">电子技术</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- 内容区域 -->
+        <div class="content">
+            <!-- 首页 -->
+            <div class="page active" id="page-home">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📊 知识库概览</h2>
+                
+                <div class="grid">
+                    <div class="stat-card">
+                        <div class="number">251</div>
+                        <div class="label">剩余天数</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <div class="number">4</div>
+                        <div class="label">招生专业</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <div class="number">4</div>
+                        <div class="label">考试科目</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <div class="number">4+</div>
+                        <div class="label">导师团队</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 25px 0 15px;">🚀 快速导航</h3>
+                <div class="quick-links">
+                    <a class="quick-link" onclick="showPage('admission')">📋 招生简章</a>
+                    <a class="quick-link" onclick="showPage('major-electrical')">⚡ 电气工程</a>
+                    <a class="quick-link" onclick="showPage('plan-overview')">📖 学习计划</a>
+                    <a class="quick-link" onclick="showPage('mentors')">👨‍🏫 导师团队</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📌</span>
+                        <h3>核心信息</h3>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>项目</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr><td>学校名称</td><td>天津职业技术师范大学（TUTE）</td></tr>
+                        <tr><td>招生学院</td><td>自动化与电气工程学院</td></tr>
+                        <tr><td>专业方向</td><td>电气工程、控制科学与工程、电子信息</td></tr>
+                        <tr><td>学习方式</td><td>全日制 / 非全日制</td></tr>
+                        <tr><td>学制</td><td>3年</td></tr>
+                        <tr><td>历年分数线</td><td>国家线A区（约273分）</td></tr>
+                        <tr><td>咨询电话</td><td>022-88126158</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📝</span>
+                        <h3>考试科目（职业技术教育-自动化方向）</h3>
+                    </div>
+                    <table>
+                        <tr>
+                            <th>科目</th>
+                            <th>代码</th>
+                            <th>分值</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr><td>思想政治理论</td><td>101</td><td>100分</td><td>全国统考</td></tr>
+                        <tr><td>英语（二）</td><td>204</td><td>100分</td><td>全国统考</td></tr>
+                        <tr><td>教育综合</td><td>333</td><td>150分</td><td>自命题</td></tr>
+                        <tr><td>电子技术基础</td><td>806</td><td>150分</td><td>自命题</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 学校简介 -->
+            <div class="page" id="page-school-intro">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">🏫 天津职业技术师范大学</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📖</span>
+                        <h3>学校简介</h3>
+                    </div>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        天津职业技术师范大学（Tianjin University of Technology and Education）是<strong>教育部与天津市人民政府共建高校</strong>、<strong>人力资源和社会保障部与天津市人民政府共建高校</strong>，天津市高水平特色大学建设高校。
+                    </p>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        学校成立于<strong>1979年</strong>，是我国最早建立的以培养职业教育师资为主要任务的普通本科师范院校，被誉为"<strong>中国培养职教师资的摇篮</strong>"。
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📊</span>
+                        <h3>基本信息</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>内容</th></tr>
+                        <tr><td>学校全称</td><td>天津职业技术师范大学</td></tr>
+                        <tr><td>简称</td><td>天津职师大、TUTE</td></tr>
+                        <tr><td>创办时间</td><td>1979年</td></tr>
+                        <tr><td>学校类型</td><td>师范类</td></tr>
+                        <tr><td>定位</td><td>天津市高水平特色大学</td></tr>
+                        <tr><td>地址</td><td>天津市河西区大沽南路1310号</td></tr>
+                        <tr><td>邮编</td><td>300222</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🌐</span>
+                        <h3>官方网站</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;">🏠 学校官网：<a href="https://www.tute.edu.cn/" target="_blank">https://www.tute.edu.cn/</a></li>
+                        <li style="margin-bottom: 10px;">📚 研究生处：<a href="https://yzb.tute.edu.cn/" target="_blank">https://yzb.tute.edu.cn/</a></li>
+                        <li style="margin-bottom: 10px;">🔍 研招网：<a href="https://yz.chsi.com.cn/" target="_blank">https://yz.chsi.com.cn/</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 学院介绍 -->
+            <div class="page" id="page-college-intro">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">⚡ 自动化与电气工程学院</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🏛️</span>
+                        <h3>学院简介</h3>
+                    </div>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        自动化与电气工程学院成立于<strong>前身为自动化系</strong>，2008年改为现名，是学校建院最早的学院之一。学院以培养电气工程、自动化、电子信息等领域的高素质应用型人才为己任。
+                    </p>
+                    <p style="line-height: 1.8;">
+                        学院拥有完善的学科体系和较强的科研实力，在电气工程、控制科学与工程等领域具有鲜明特色。
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>系别设置</h3>
+                    </div>
+                    <div class="grid">
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>1. 自动化系</strong>（含人工智能专业）
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>2. 测控技术系</strong>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>3. 电气工程系</strong>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>4. 电气技术系</strong>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>5. 人工智能系</strong>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">
+                            <strong>6. 实验实训中心</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📞</span>
+                        <h3>联系方式</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>信息</th></tr>
+                        <tr><td>学院电话</td><td>022-88181529</td></tr>
+                        <tr><td>办公地点</td><td>科研楼413室</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 联系方式 -->
+            <div class="page" id="page-contact">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📞 联系方式汇总</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🏢</span>
+                        <h3>研究生处</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>信息</th></tr>
+                        <tr><td>咨询电话</td><td>022-88126158</td></tr>
+                        <tr><td>邮箱</td><td>tuteyjsjy@163.com</td></tr>
+                        <tr><td>办公地点</td><td>科研楼413室</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">⚡</span>
+                        <h3>自动化与电气工程学院</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>信息</th></tr>
+                        <tr><td>咨询电话</td><td>022-88181529</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💡</span>
+                        <h3>咨询建议</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>建议在工作时间（周一至周五 8:30-11:30，14:00-17:00）拨打</li>
+                        <li>初试成绩出来后尽早联系导师</li>
+                        <li>邮件咨询时注明姓名、报考专业、初试成绩</li>
+                        <li>关注学校研究生处网站获取最新通知</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 电气工程专业 -->
+            <div class="page" id="page-major-electrical">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">⚡ 电气工程专业（080800）</h2>
+                <span class="tag tag-primary">学术型硕士</span>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📖</span>
+                        <h3>专业概述</h3>
+                    </div>
+                    <p style="line-height: 1.8;">
+                        电气工程（080800）是天津职业技术师范大学的学术型硕士学位授权点，主要培养从事电气工程领域科学研究、技术开发的高级专门人才。
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📋</span>
+                        <h3>基本信息</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>内容</th></tr>
+                        <tr><td>专业代码</td><td>080800</td></tr>
+                        <tr><td>专业名称</td><td>电气工程</td></tr>
+                        <tr><td>门类</td><td>工学</td></tr>
+                        <tr><td>类型</td><td>学术型硕士</td></tr>
+                        <tr><td>学制</td><td>3年</td></tr>
+                        <tr><td>学费</td><td>8000元/生·学年</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔬</span>
+                        <h3>研究方向</h3>
+                    </div>
+                    <div class="grid">
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">1. 电机与电器</div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">2. 电力系统及其自动化</div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">3. 电力电子与电力传动</div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">4. 电工理论与新技术</div>
+                        <div style="background: var(--light); padding: 15px; border-radius: 8px;">5. 电气控制技术</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📝</span>
+                        <h3>考试科目</h3>
+                    </div>
+                    <table>
+                        <tr><th>科目</th><th>代码</th><th>说明</th></tr>
+                        <tr><td>思想政治理论</td><td>101</td><td>全国统考</td></tr>
+                        <tr><td>英语（一）或俄语或日语</td><td>201/202/203</td><td>选一</td></tr>
+                        <tr><td>数学（一）</td><td>301</td><td>全国统考</td></tr>
+                        <tr><td>专业课</td><td>-</td><td>电路或自动控制原理</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💼</span>
+                        <h3>就业方向</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>电力系统（电网、电厂）</li>
+                        <li>电气设备制造企业</li>
+                        <li>科研院所</li>
+                        <li>高等院校</li>
+                        <li>政府机关</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 控制科学与工程专业 -->
+            <div class="page" id="page-major-control">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">🎯 控制科学与工程专业（081100）</h2>
+                <span class="tag tag-primary">学术型硕士</span>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📖</span>
+                        <h3>专业概述</h3>
+                    </div>
+                    <p style="line-height: 1.8;">
+                        控制科学与工程（081100）是天津职业技术师范大学的学术型硕士学位授权点，研究自动控制理论与技术在各领域中的应用。
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📋</span>
+                        <h3>基本信息</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>内容</th></tr>
+                        <tr><td>专业代码</td><td>081100</td></tr>
+                        <tr><td>专业名称</td><td>控制科学与工程</td></tr>
+                        <tr><td>门类</td><td>工学</td></tr>
+                        <tr><td>类型</td><td>学术型硕士</td></tr>
+                        <tr><td>学制</td><td>3年</td></tr>
+                        <tr><td>学费</td><td>8000元/生·学年</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔬</span>
+                        <h3>研究方向</h3>
+                    </div>
+                    <table>
+                        <tr><th>方向</th><th>具体内容</th></tr>
+                        <tr><td>控制理论与控制工程</td><td>非线性控制、智能控制、复杂系统建模</td></tr>
+                        <tr><td>检测技术与自动化装置</td><td>传感器技术、自动化仪表</td></tr>
+                        <tr><td>系统工程</td><td>系统建模与优化、决策支持系统</td></tr>
+                        <tr><td>飞行器控制</td><td>无人机控制、卫星姿态控制</td></tr>
+                        <tr><td>模式识别与智能系统</td><td>图像处理、机器学习</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📝</span>
+                        <h3>考试科目</h3>
+                    </div>
+                    <table>
+                        <tr><th>科目</th><th>代码</th><th>说明</th></tr>
+                        <tr><td>思想政治理论</td><td>101</td><td>全国统考</td></tr>
+                        <tr><td>英语（一）或俄语或日语</td><td>201/202/203</td><td>选一</td></tr>
+                        <tr><td>数学（一）</td><td>301</td><td>全国统考</td></tr>
+                        <tr><td>专业课</td><td>-</td><td>电路或自动控制原理</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 电子信息专业 -->
+            <div class="page" id="page-major-electronic">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📡 电子信息专业（085400）</h2>
+                <span class="tag tag-success">专业型硕士</span>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📋</span>
+                        <h3>基本信息</h3>
+                    </div>
+                    <table>
+                        <tr><th>项目</th><th>内容</th></tr>
+                        <tr><td>专业代码</td><td>085400</td></tr>
+                        <tr><td>专业名称</td><td>电子信息</td></tr>
+                        <tr><td>类型</td><td>专业型硕士</td></tr>
+                        <tr><td>学习方式</td><td>全日制 / 非全日制</td></tr>
+                        <tr><td>学制</td><td>3年</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📝</span>
+                        <h3>考试科目</h3>
+                    </div>
+                    <table>
+                        <tr><th>科目</th><th>代码</th><th>说明</th></tr>
+                        <tr><td>思想政治理论</td><td>101</td><td>全国统考</td></tr>
+                        <tr><td>英语（二）</td><td>204</td><td>全国统考</td></tr>
+                        <tr><td>数学（二）</td><td>302</td><td>全国统考</td></tr>
+                        <tr><td>专业课</td><td>-</td><td>电路或自动控制原理</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 导师介绍 -->
+            <div class="page" id="page-mentors">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">👨‍🏫 研究生导师</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💡</span>
+                        <h3>如何选择导师</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px; margin-bottom: 15px;">
+                        <li><strong>研究方向</strong>：选择与自己兴趣相符的方向</li>
+                        <li><strong>科研项目</strong>：了解导师是否有在研项目</li>
+                        <li><strong>学术成果</strong>：查看导师近年发表的论文</li>
+                        <li><strong>毕业去向</strong>：了解毕业生就业情况</li>
+                        <li><strong>性格匹配</strong>：与导师的沟通风格是否合适</li>
+                    </ul>
+                    <p style="color: var(--accent); font-weight: 500;">💡 建议在初试成绩出来后联系导师，邮件要简洁、专业、有礼貌。</p>
+                </div>
+                
+                <h3 style="margin: 20px 0;">已收录导师</h3>
+                <div class="grid">
+                    <div class="mentor-card">
+                        <h4>曾凡琳</h4>
+                        <div class="info">📧 fanlin@tju.edu.cn</div>
+                        <div class="info">🏷️ 工学博士、硕士生导师</div>
+                        <div class="info">📚 学科：控制科学与工程</div>
+                        <div class="info">🔬 研究方向：飞行器控制、复杂系统建模、非线性控制</div>
+                        <div class="info">⭐ 天津市"131"创新人才</div>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <h4>张永立</h4>
+                        <div class="info">🏷️ 副教授</div>
+                        <div class="info">📚 学科：控制理论与控制工程</div>
+                        <div class="info">🔬 研究方向：非线性控制、智能控制、复杂系统建模</div>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <h4>车艳秋</h4>
+                        <div class="info">🏷️ 硕士生导师</div>
+                        <div class="info">📚 学科：电气工程</div>
+                        <div class="info">🔬 特点：天津大学电气工程博士后，香港理工大学访问经历</div>
+                    </div>
+                    
+                    <div class="mentor-card">
+                        <h4>耿立辉</h4>
+                        <div class="info">📧 glh2010@tute.edu.cn</div>
+                        <div class="info">🏷️ 硕士生导师</div>
+                        <div class="info">📚 学科：控制科学与工程/控制理论与控制工程</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 招生简章 -->
+            <div class="page" id="page-admission">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📋 招生简章</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📌</span>
+                        <h3>招生类型</h3>
+                    </div>
+                    <p style="line-height: 1.8; margin-bottom: 15px;">
+                        天津职业技术师范大学招收以下类型研究生：
+                    </p>
+                    <div class="grid">
+                        <div style="background: rgba(37,99,235,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                            <strong>全日制研究生</strong>
+                            <p style="font-size: 0.9em; color: #64748b;">全脱产学习</p>
+                        </div>
+                        <div style="background: rgba(16,185,129,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                            <strong>非全日制研究生</strong>
+                            <p style="font-size: 0.9em; color: #64748b;">在职学习</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>招生专业（自动化与电气工程学院）</h3>
+                    </div>
+                    <table>
+                        <tr><th>专业代码</th><th>专业名称</th><th>类型</th><th>学习方式</th></tr>
+                        <tr><td>080800</td><td>电气工程</td><td>学术型</td><td>全日制</td></tr>
+                        <tr><td>081100</td><td>控制科学与工程</td><td>学术型</td><td>全日制</td></tr>
+                        <tr><td>085400</td><td>电子信息</td><td>专业型</td><td>全日制/非全日制</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💰</span>
+                        <h3>学费标准</h3>
+                    </div>
+                    <table>
+                        <tr><th>类型</th><th>学费标准</th></tr>
+                        <tr><td>学术型硕士</td><td>8000元/生·学年</td></tr>
+                        <tr><td>专业型硕士</td><td>以当年招生简章为准</td></tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">⏰</span>
+                        <h3>重要时间节点</h3>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>网上报名</h4>
+                            <p>每年10月（预计2025年10月5日-25日）</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>网上确认</h4>
+                            <p>每年11月（以各省公告为准）</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>初试</h4>
+                            <p>每年12月下旬（预计2025年12月21-22日）</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>成绩查询</h4>
+                            <p>次年2月中下旬</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>复试</h4>
+                            <p>次年3-4月</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>录取</h4>
+                            <p>次年4-5月</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 历年分数线 -->
+            <div class="page" id="page-scores">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📊 历年分数线</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📈</span>
+                        <h3>历年国家线A区（工学）</h3>
+                    </div>
+                    <table>
+                        <tr><th>年份</th><th>单科（满分=100）</th><th>单科（满分>100）</th><th>总分</th></tr>
+                        <tr><td>2024</td><td>37</td><td>56</td><td>273</td></tr>
+                        <tr><td>2023</td><td>38</td><td>57</td><td>273</td></tr>
+                        <tr><td>2022</td><td>38</td><td>57</td><td>273</td></tr>
+                        <tr><td>2021</td><td>37</td><td>56</td><td>263</td></tr>
+                        <tr><td>2020</td><td>37</td><td>56</td><td>264</td></tr>
+                    </table>
+                    <p style="margin-top: 15px; color: var(--accent);">💡 注：通常执行国家线A区工学分数线</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💡</span>
+                        <h3>备考建议</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>目标分数建议：总分 300+ 较为稳妥</li>
+                        <li>英语（一）难度较大，建议提前准备</li>
+                        <li>专业课认真复习，往年题目有参考价值</li>
+                        <li>关注学校研究生处网站，获取最新招生信息</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 调剂信息 -->
+            <div class="page" id="page-调剂">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">🔄 调剂信息</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📌</span>
+                        <h3>调剂基本条件</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>符合调入专业的报考条件</li>
+                        <li>初试成绩（含加分）符合第一志愿报考专业在A区的全国初试成绩基本要求</li>
+                        <li>调入专业与第一志愿报考专业相同或相近</li>
+                        <li>初试科目与调入专业初试科目相同或相近</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">⏰</span>
+                        <h3>调剂时间</h3>
+                    </div>
+                    <p style="line-height: 1.8;">
+                        调剂通常在<strong>初试成绩公布后</strong>至<strong>复试结束前</strong>进行，具体时间以学校研究生处网站公告为准。
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">💡</span>
+                        <h3>调剂建议</h3>
+                    </div>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li>提前关注学校研究生处网站和研招网</li>
+                        <li>准备好个人简历、初试成绩单等材料</li>
+                        <li>及时联系招生单位，了解调剂名额</li>
+                        <li>调剂系统开放后尽快填报</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 学习计划概览 -->
+            <div class="page" id="page-plan-overview">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📖 备考学习计划概览</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">⏱️</span>
+                        <h3>复习时间安排</h3>
+                    </div>
+                    <div class="phase">
+                        <h4>🌱 基础阶段（现在-6月）</h4>
+                        <p>打牢基础，全面复习各科知识点</p>
+                    </div>
+                    <div class="phase" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <h4>🔥 强化阶段（7月-9月）</h4>
+                        <p>重点突破，提升解题能力</p>
+                    </div>
+                    <div class="phase" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                        <h4>🚀 冲刺阶段（10月-12月）</h4>
+                        <p>模拟实战，查漏补缺</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>每日学习时间安排</h3>
+                    </div>
+                    <table>
+                        <tr><th>时间段</th><th>内容</th><th>时长</th></tr>
+                        <tr><td>早起</td><td>英语单词/政治</td><td>1小时</td></tr>
+                        <tr><td>午休</td><td>碎片时间复习</td><td>0.5小时</td></tr>
+                        <tr><td>晚上</td><td>专业课/数学</td><td>3小时</td></tr>
+                        <tr><td>睡前</td><td>复盘/背诵</td><td>0.5小时</td></tr>
+                    </table>
+                    <p style="margin-top: 15px; color: var(--accent);">
+                        💡 工作日建议5小时/天，周末建议10小时/天
+                    </p>
+                </div>
+                
+                <h3 style="margin: 20px 0;">学科详细计划</h3>
+                <div class="grid">
+                    <div style="background: var(--light); padding: 20px; border-radius: 12px; cursor: pointer;" onclick="showPage('plan-politics')">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">📰 政治</h4>
+                        <p style="font-size: 0.9em; color: #64748b;">基础·强化·冲刺三阶段</p>
+                        <p style="font-size: 0.85em; color: var(--accent); margin-top: 10px;">→ 点击查看详情</p>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 12px; cursor: pointer;" onclick="showPage('plan-english')">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">🇬🇧 英语</h4>
+                        <p style="font-size: 0.9em; color: #64748b;">词汇·真题·作文模板</p>
+                        <p style="font-size: 0.85em; color: var(--accent); margin-top: 10px;">→ 点击查看详情</p>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 12px; cursor: pointer;" onclick="showPage('plan-education')">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">📖 教育综合</h4>
+                        <p style="font-size: 0.9em; color: #64748b;">教育学·中教史·外教史·教心</p>
+                        <p style="font-size: 0.85em; color: var(--accent); margin-top: 10px;">→ 点击查看详情</p>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 12px; cursor: pointer;" onclick="showPage('plan-electronic')">
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ 电子技术</h4>
+                        <p style="font-size: 0.9em; color: #64748b;">半导体·放大电路·集成运放</p>
+                        <p style="font-size: 0.85em; color: var(--accent); margin-top: 10px;">→ 点击查看详情</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 政治学习计划 -->
+            <div class="page" id="page-plan-politics">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📰 政治备考计划</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🌱</span>
+                        <h3>基础阶段（4月-6月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 了解考研政治试卷结构和题型分布</li>
+                        <li><input type="checkbox"> 熟悉五大部分：马原、毛中特、史纲、思修、时政</li>
+                        <li><input type="checkbox"> 学习马克思主义基本原理（哲学+政治经济学）</li>
+                        <li><input type="checkbox"> 了解毛泽东思想和中国特色社会主义理论体系</li>
+                        <li><input type="checkbox"> 每天看新闻联播或新闻APP，关注时事</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔥</span>
+                        <h3>强化阶段（7月-9月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 精读肖秀荣《知识点精讲精练》</li>
+                        <li><input type="checkbox"> 完成《1000题》选择题部分（至少2遍）</li>
+                        <li><input type="checkbox"> 重点突破马原哲学部分（唯物论+辩证法+认识论）</li>
+                        <li><input type="checkbox"> 学习毛中特重要章节</li>
+                        <li><input type="checkbox"> 整理史纲时间线</li>
+                        <li><input type="checkbox"> 背诵思修重要知识点</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🚀</span>
+                        <h3>冲刺阶段（10月-12月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 做肖八、肖四选择题</li>
+                        <li><input type="checkbox"> 背诵肖四分析题答案（必须背熟）</li>
+                        <li><input type="checkbox"> 关注全年时政热点</li>
+                        <li><input type="checkbox"> 做真题模拟卷</li>
+                        <li><input type="checkbox"> 整理万能答题模板</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📊</span>
+                        <h3>考试分值分布</h3>
+                    </div>
+                    <table>
+                        <tr><th>科目</th><th>分值</th></tr>
+                        <tr><td>马原</td><td>约24分</td></tr>
+                        <tr><td>毛中特</td><td>约30分</td></tr>
+                        <tr><td>史纲</td><td>约14分</td></tr>
+                        <tr><td>思修</td><td>约16分</td></tr>
+                        <tr><td>时政</td><td>约16分</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 英语学习计划 -->
+            <div class="page" id="page-plan-english">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">🇬🇧 英语备考计划</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🌱</span>
+                        <h3>基础阶段（4月-6月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 背完考研核心词汇（1500-2000词）</li>
+                        <li><input type="checkbox"> 学习基础语法（长难句分析）</li>
+                        <li><input type="checkbox"> 每天阅读1-2篇英文文章</li>
+                        <li><input type="checkbox"> 练习基本句型翻译</li>
+                        <li><input type="checkbox"> 积累作文常用表达</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔥</span>
+                        <h3>强化阶段（7月-9月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 背完考研全部词汇（5500词）</li>
+                        <li><input type="checkbox"> 做2010-2020年真题阅读部分（精读）</li>
+                        <li><input type="checkbox"> 学习阅读技巧：细节题、主旨题、推理题</li>
+                        <li><input type="checkbox"> 练习新题型（排序/选段/小标题）</li>
+                        <li><input type="checkbox"> 练习翻译（拆分组合法）</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🚀</span>
+                        <h3>冲刺阶段（10月-12月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 完成2021-2025年真题模拟</li>
+                        <li><input type="checkbox"> 背诵作文模板（大作文+小作文）</li>
+                        <li><input type="checkbox"> 整理个人作文模板</li>
+                        <li><input type="checkbox"> 练习完形填空</li>
+                        <li><input type="checkbox"> 单词查漏补缺</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📊</span>
+                        <h3>英语二试卷结构</h3>
+                    </div>
+                    <table>
+                        <tr><th>题型</th><th>分值</th><th>篇数</th></tr>
+                        <tr><td>完形填空</td><td>10分</td><td>1篇</td></tr>
+                        <tr><td>阅读理解</td><td>40分</td><td>4篇</td></tr>
+                        <tr><td>新题型</td><td>10分</td><td>1篇</td></tr>
+                        <tr><td>翻译</td><td>15分</td><td>1篇</td></tr>
+                        <tr><td>作文</td><td>25分</td><td>2篇</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 教育综合学习计划 -->
+            <div class="page" id="page-plan-education">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">📖 教育综合备考计划</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>考试内容（333教育综合）</h3>
+                    </div>
+                    <div class="grid">
+                        <div style="background: rgba(37,99,235,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>教育学原理</strong>
+                            <p style="font-size: 0.85em; color: #64748b;">约60分</p>
+                        </div>
+                        <div style="background: rgba(16,185,129,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>中国教育史</strong>
+                            <p style="font-size: 0.85em; color: #64748b;">约30分</p>
+                        </div>
+                        <div style="background: rgba(245,158,11,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>外国教育史</strong>
+                            <p style="font-size: 0.85em; color: #64748b;">约30分</p>
+                        </div>
+                        <div style="background: rgba(239,68,68,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>教育心理学</strong>
+                            <p style="font-size: 0.85em; color: #64748b;">约30分</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🌱</span>
+                        <h3>基础阶段（4月-6月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 阅读教育学原理教材，建立框架</li>
+                        <li><input type="checkbox"> 学习中国教育史（朝代线索）</li>
+                        <li><input type="checkbox"> 学习外国教育史（国家线索）</li>
+                        <li><input type="checkbox"> 学习教育心理学基础理论</li>
+                        <li><input type="checkbox"> 整理每科知识框架图</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔥</span>
+                        <h3>强化阶段（7月-9月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 背诵教育学原理重点知识点</li>
+                        <li><input type="checkbox"> 背诵中外教育史重要人物和制度</li>
+                        <li><input type="checkbox"> 背诵教育心理学重要理论和实验</li>
+                        <li><input type="checkbox"> 整理名词解释和简答题</li>
+                        <li><input type="checkbox"> 做历年真题选择题</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🚀</span>
+                        <h3>冲刺阶段（10月-12月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 全面背诵四科重点内容（至少3轮）</li>
+                        <li><input type="checkbox"> 练习分析论述题答题思路</li>
+                        <li><input type="checkbox"> 做真题模拟卷</li>
+                        <li><input type="checkbox"> 查漏补缺，重点突破</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 电子技术学习计划 -->
+            <div class="page" id="page-plan-electronic">
+                <h2 style="margin-bottom: 20px; color: var(--primary);">⚡ 电子技术备考计划</h2>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📚</span>
+                        <h3>考试内容（806电子技术基础）</h3>
+                    </div>
+                    <div class="grid">
+                        <div style="background: rgba(37,99,235,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>半导体基础</strong>
+                        </div>
+                        <div style="background: rgba(16,185,129,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>放大电路</strong>
+                        </div>
+                        <div style="background: rgba(245,158,11,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>集成运算放大器</strong>
+                        </div>
+                        <div style="background: rgba(239,68,68,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>反馈电路</strong>
+                        </div>
+                        <div style="background: rgba(124,58,237,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>直流稳压电源</strong>
+                        </div>
+                        <div style="background: rgba(14,165,233,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>电力电子技术</strong>
+                        </div>
+                        <div style="background: rgba(236,72,153,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>数字电路</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🌱</span>
+                        <h3>基础阶段（4月-6月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 复习半导体二极管、三极管工作原理</li>
+                        <li><input type="checkbox"> 学习基本放大电路（共射/共集/共基）</li>
+                        <li><input type="checkbox"> 理解静态工作点和放大倍数</li>
+                        <li><input type="checkbox"> 学习集成运算放大器基础</li>
+                        <li><input type="checkbox"> 复习数字电路基础（逻辑门）</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🔥</span>
+                        <h3>强化阶段（7月-9月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 深入学习多级放大电路和差分放大电路</li>
+                        <li><input type="checkbox"> 掌握反馈类型判断和负反馈放大器</li>
+                        <li><input type="checkbox"> 学习集成运放的应用电路</li>
+                        <li><input type="checkbox"> 掌握直流稳压电源电路</li>
+                        <li><input type="checkbox"> 学习组合逻辑电路和时序逻辑电路</li>
+                        <li><input type="checkbox"> 整理常用公式和电路图</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">🚀</span>
+                        <h3>冲刺阶段（10月-12月）</h3>
+                    </div>
+                    <ul class="task-list">
+                        <li><input type="checkbox"> 做历年真题，总结出题规律</li>
+                        <li><input type="checkbox"> 重点突破电路分析计算题</li>
+                        <li><input type="checkbox"> 整理数字电路设计题思路</li>
+                        <li><input type="checkbox"> 背诵核心公式和等效电路</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="icon">📊</span>
+                        <h3>核心公式速记</h3>
+                    </div>
+                    <table>
+                        <tr><th>内容</th><th>公式</th></tr>
+                        <tr><td>共射放大倍数</td><td>Au = -βRc/rbe</td></tr>
+                        <tr><td>反馈系数</td><td>F = Xf/Xo</td></tr>
+                        <tr><td>运放虚短</td><td>V+ ≈ V-</td></tr>
+                        <tr><td>运放虚断</td><td>In+ ≈ In- ≈ 0</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 倒计时
+        function updateCountdown() {
+            const target = new Date('2025-12-20T09:00:00');
+            const now = new Date();
+            const diff = target - now;
+            
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // 页面切换
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // 显示目标页面
+            document.getElementById('page-' + pageId).classList.add('active');
+            // 更新导航状态
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            event.target.classList.add('active');
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // 保存到localStorage
+            localStorage.setItem('lastPage', pageId);
+        }
+        
+        // 恢复上次页面
+        const lastPage = localStorage.getItem('lastPage');
+        if (lastPage) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + lastPage).classList.add('active');
+        }
+        
+        // 任务打卡保存
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            const key = 'task_' + cb.closest('.page').id + '_' + cb.closest('li').textContent.trim().substring(0, 30);
+            if (localStorage.getItem(key)) {
+                cb.checked = true;
+                cb.closest('li').classList.add('checked');
+            }
+            cb.addEventListener('change', function() {
+                localStorage.setItem(key, this.checked);
+                this.closest('li').classList.toggle('checked', this.checked);
+            });
+        });
+    </script>
+</body>
+</html>
